@@ -70,7 +70,7 @@ for n in range(1,15,3):
         np.save(os.path.join(current_folder,'dvzn{0}m{1}.npy'.format(n,mode)), dvz)
         np.save(os.path.join(current_folder,'zn{0}m{1}.npy'.format(n,mode)), grid.zg)
         
-#        plot_solution(system, smooth=True)
+        plot_solution(system, smooth=True, filename=os.path.join(current_folder,'eigenmodes.png'))
         
         plt.rc('image', origin='lower', cmap='RdBu')
         plt.figure(2)
@@ -95,12 +95,12 @@ for n in range(1,15,3):
         dbx = get_2Dmap(system, 'dbx', xmin, xmax, Nx, Nz)
         dbz = get_2Dmap(system, 'dbz', xmin, xmax, Nx, Nz)
         
-        axes[0, 0].imshow(dvx, extent=extent)
-        axes[0, 0].set_title(r'$\delta v_x$')
-        axes[0, 1].imshow(dvz, extent=extent)
-        axes[0, 1].set_title(r'$\delta v_z$')
-        axes[0, 2].imshow(drho, extent=extent)
-        axes[0, 2].set_title(r'$\delta \rho/\rho$')
+        axes[0, 0].imshow(drho, extent=extent)
+        axes[0, 0].set_title(r'$\delta \rho/\rho$')
+        axes[0, 1].imshow(dvx, extent=extent)
+        axes[0, 1].set_title(r'$\delta v_x$')
+        axes[0, 2].imshow(dvz, extent=extent)
+        axes[0, 2].set_title(r'$\delta v_z$')
         axes[1, 0].imshow(dT, extent=extent)
         axes[1, 0].set_title(r'$\delta T/T$')
         axes[1, 1].imshow(dbx, extent=extent)
@@ -108,5 +108,5 @@ for n in range(1,15,3):
         axes[1, 2].imshow(dbz, extent=extent)
         axes[1, 2].set_title(r'$\delta b_z$')
 #        plt.show()
-        plt.savefig(os.path.join(current_folder,'eigenmodes.png'))
+        plt.savefig(os.path.join(current_folder,'map_eigenmodes.png'))
         

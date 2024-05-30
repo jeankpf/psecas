@@ -10,7 +10,9 @@ def plot_solution(system, filename=None, num=1, smooth=True, limits=None):
     plt.figure(num)
     plt.clf()
     fig, axes = plt.subplots(num=num, nrows=system.dim, sharex=True)
-    for j, var in enumerate(system.variables):
+    labels = [r'$\delta\rho$', r'$\delta v_x$', r'$\delta v_z$', r'$\delta T$', r'$\delta A$']
+    for j, var in enumerate(['drho', 'dvx', 'dvz', 'dT', 'dA']):
+#    for j, var in enumerate(system.variables):
         if smooth:
             if limits is None:
                 z = np.linspace(grid.zmin, grid.zmax, 2000)
@@ -31,7 +33,8 @@ def plot_solution(system, filename=None, num=1, smooth=True, limits=None):
             )
         axes[j].plot(grid.zg, sol[var].real, 'C0.', label='Real')
         axes[j].plot(grid.zg, sol[var].imag, 'C1.', label='Imag')
-        axes[j].set_ylabel(system.labels[j])
+#        axes[j].set_ylabel(system.labels[j])
+        axes[j].set_ylabel(labels[j])
     axes[system.dim - 1].set_xlabel(r"$z$")
     try:
         axes[0].set_title(
