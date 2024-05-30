@@ -1,6 +1,7 @@
 import numpy as np
 from psecas import Solver, ChebyshevExtremaGrid
 from psecas.systems.mti import MagnetoThermalInstability
+#from psecas.systems.mti2Dsph import MagnetoThermalInstability
 from psecas import plot_solution
 
 """
@@ -25,7 +26,8 @@ grid = ChebyshevExtremaGrid(N, zmin, zmax)
 
 beta = 1e6
 Kn0 = 2000
-kx = 2 * np.pi
+n = 1
+kx = 2 * np.pi * n
 # kxmax for beta = 1e5 and Kn0 = 200
 # kx = 28.42043898247281
 # kxmax for beta = 1e3 and Kn0 = 2000
@@ -59,6 +61,10 @@ y = np.vstack(
 val = np.max(np.abs(y))
 for key in system.variables:
     system.result[key] /= val
+
+dvz = system.result['dvz'].real
+np.save('dvzn{0}m{1}.npy'.format(n,mode), dvz)
+np.save('zn{0}m{1}.npy'.format(n,mode), grid.zg)
 
 plot_solution(system, smooth=True)
 
